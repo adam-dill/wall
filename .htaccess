@@ -1,0 +1,7 @@
+PassengerNodejs /home/adamdill/.nvm/versions/node/v12.18.3/bin/node
+RewriteEngine On
+RewriteCond %{REQUEST_URI} !^/?static
+RewriteCond %{REQUEST_URI} !^/?graphql
+RewriteCond %{REQUEST_URI} !^/?api
+RewriteCond %{REQUEST_URI} !^/?uploads?
+RewriteRule ^ public/index.html [QSA,L]

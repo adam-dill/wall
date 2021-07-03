@@ -1,0 +1,28 @@
+$white: #ffffff;
+$black: #000000;
+
+$primary: hsl(177, 50%, 46%);
+
+/*
+Clean and Modern
+#17252A -   hsl(196, 29%, 13%)
+#2B7A78 -   hsl(178, 48%, 32%)
+#3AAFA9 -   hsl(177, 50%, 46%)
+#DEF2F1 -   hsl(177, 43%, 91%)
+#FEFFFF -   hsl(180, 100%, 100%)
+
+
+Vermillion and Russian Green
+#8EE4AF - 	hsl(143, 61%, 73%)
+#EDF5E1 -   hsl(84, 50%, 92%)
+#5CDB95 -   hsl(147, 64%, 61%)
+#907163 -   hsl(19, 19%, 48%)
+#379683 -   hsl(168, 46%, 40%)
+*/
+$cleanAndModern: (
+    one: hsl(196, 29%, 13%),
+    two: hsl(178, 48%, 32%),
+    three: hsl(177, 50%, 46%),
+    four: hsl(177, 43%, 91%),
+    five: hsl(180, 100%, 100%)
+);

@@ -1,0 +1,55 @@
+
+.project-title {
+    font-family: SongFromJennifer;
+    font-size: 3.8rem;
+    text-align: center;
+    color: rgb(121, 121, 121);
+    text-transform: lowercase;
+    letter-spacing: 0.6rem;
+}
+
+.sidebar {
+    background: #131313;
+    width: 250px;
+    min-width: 250px;
+    height: 100vh;
+    padding: 1.2rem;
+
+    .link {
+        display: block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+.toggle-menu-button {
+    position: fixed;
+    z-index: 2;
+    border: none;
+    background-color: #131313;
+    color: white;
+    padding: 0.5rem 1rem;
+    font-size: 1.5rem;
+}
+
+@media (max-width: $break-sm) {
+    .nav .sidebar {
+        margin-left: 0;
+    }
+    .sidebar {
+        position: fixed;
+        z-index: 1;
+        width:70%;
+        max-height: 100vh;
+        margin-left: -70%;
+        transition: margin 0.5s;
+        padding-top: 3rem;
+        background-color: rgba($color: #000000, $alpha: 0.8);
+        backdrop-filter: blur(15px);
+
+        hr {
+            display: none;
+        }
+    }
+}

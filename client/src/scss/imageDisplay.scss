@@ -1,0 +1,16 @@
+.image-display {
+    .loader {
+        position: absolute;
+        z-index: -1;
+    }
+
+    .image-information {
+        width: 33%;
+    }
+    
+    @media (max-width: $break-lg) {
+        .image-information {
+            width: 100%;
+        }
+    }
+}
