@@ -17,6 +17,7 @@ pids
 
 # Project specific
 /public
+/tmp
 uploads
 build
 .env
