@@ -97,12 +97,18 @@ app.get('/uploads/:size/:filename', async (req, res) => {
     */
 
     /*  JIMP 34sec  */
-    const image = await jimp.read(`${filepath}`);
-    const final = await image.resize(imageSize[size].width, imageSize[size].height);
-    await final.write(sizedFilePath);
-    const buffer = await final.getBufferAsync(jimp.MIME_JPEG);
+    try {
+        const image = await jimp.read(`${filepath}`);
+        const final = await image.resize(imageSize[size].width, imageSize[size].height);
+        await final.write(sizedFilePath);
+        const buffer = await final.getBufferAsync(jimp.MIME_JPEG);
+        res.end(buffer);
+    } catch (err) {
+        accessLog.write(err.message);
+        throw new Error(err.message);
+    }
 
-    res.end(buffer);
+    
 });
 
 app.listen(port, (err) => {

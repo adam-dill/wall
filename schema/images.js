@@ -112,17 +112,22 @@ const resolvers = {
             const created = new Date();
             const uuid = uuidv4();
             const filename = `${uuid}.${fileExtension}`;
-            const image = await models.images.create({user_id, filename, title, description, created});
-            await groups.forEach(async (groupId) => {
-                // ensure the group belongs to the user
-                const group = await models.image_groups.findOne({where: {id: groupId, user_id}});
-                if (group) {
-                    await models.image_group_relationship.create({image_id: image.id, group_id: groupId});
-                }
-            });
             await saveImage(fileStream, filename);
-
-            return await packData(image, currentUser, req);
+            if(fs.existsSync(filename)) {
+                const image = await models.images.create({user_id, filename, title, description, created});
+                await groups.forEach(async (groupId) => {
+                    // ensure the group belongs to the user
+                    const group = await models.image_groups.findOne({where: {id: groupId, user_id}});
+                    if (group) {
+                        await models.image_group_relationship.create({image_id: image.id, group_id: groupId});
+                    }
+                });
+                
+                return await packData(image, currentUser, req);
+            } else {
+                throw new Error('The image was not able to be uploaded.');
+            }
+            
         },
         updateImage: async (parent, {id, image:{title, description, file, groups}}, req) => {
             const found = await models.images.findOne({ where: { id } });
