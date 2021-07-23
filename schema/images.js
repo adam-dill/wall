@@ -104,6 +104,7 @@ const resolvers = {
             
             const { createReadStream, mimetype } = await file;
             const fileStream = createReadStream();
+            fileStream.on('error', (err) => console.error(err))
             const [fileType, fileExtension] = mimetype.split('/');
             if (fileType !== 'image') {
                 throw new Error('The uploaded file was not an image');
@@ -113,7 +114,7 @@ const resolvers = {
             const uuid = uuidv4();
             const filename = `${uuid}.${fileExtension}`;
             await saveImage(fileStream, filename);
-            if(fs.existsSync(filename)) {
+            if(fs.existsSync(`./${uploadDir}/${filename}`)) {
                 const image = await models.images.create({user_id, filename, title, description, created});
                 await groups.forEach(async (groupId) => {
                     // ensure the group belongs to the user
@@ -239,12 +240,12 @@ const createImagePaths = (data, req) => {
 }
 
 const saveImage = async (fileStream, filename) => {
-    // TODO: image for the full should be created like the others.
     const fullPath = `./${uploadDir}`
     if (!fs.existsSync(`./${uploadDir}`)) {
         fs.mkdirSync(`./${uploadDir}`);
     }
-    await fileStream.pipe(await fs.createWriteStream(`./${uploadDir}/${filename}`));
+    const writeStream = await fs.createWriteStream(`./${uploadDir}/${filename}`);
+    await fileStream.pipe(writeStream);
     await sleep(100);
 }
 
